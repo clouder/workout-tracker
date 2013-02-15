@@ -1,4 +1,6 @@
 WorkoutTracker::Application.routes.draw do
+  resource :workout
+  root to: 'workouts#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
