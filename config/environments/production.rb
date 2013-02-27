@@ -66,6 +66,6 @@ WorkoutTracker::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic") do |u, p|
-    [u, p] == ['clouder', 'clouder']
+    [u, p] == [ENV['USERNAME'] || 'beast', ENV['PASSWORD'] || 'mode']
   end
 end
