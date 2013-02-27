@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'pg'
+gem 'state_machine'
 
 
 # Gems used only for assets and not required
@@ -18,4 +19,5 @@ end
 
 group :test do
   gem 'tork'
+  gem 'rb-inotify', '~> 0.8.8'
 end

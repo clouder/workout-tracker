@@ -1,0 +1,7 @@
+<h1><%= @workout.exercise.capitalize %> - <%= @workout.weight %> lbs [<%= @workout.previous_sets %>]</h1>
+<% (1..5).to_a.reverse.each do |i| %>
+  <%= form_tag workout_path, method: :put do %>
+    <%= hidden_field_tag :reps, i %>
+    <%= submit_tag i %>
+  <% end %>
+<% end %>
