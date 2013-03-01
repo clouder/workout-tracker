@@ -107,4 +107,11 @@ class WorkoutTest < ActiveSupport::TestCase
     @workout.complete_set
     assert_blank @workout.exercises[:squats][:reps]
   end
+
+  test 'after 1 set of deadlifts next exercise should be squats' do
+    @workout.state = 'deadlifts'
+    @workout.exercises[:deadlifts][:reps] = '5'
+    @workout.complete_set
+    assert_equal 'squats', @workout.exercise
+  end
 end

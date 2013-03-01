@@ -48,12 +48,17 @@ class Workout < ActiveRecord::Base
   def complete_set
     increment_failures if failure?
     increase_weight if success?
-    next_exercise if total_sets == 5
+    next_exercise
   end
 
   def next_exercise
-    exercises[exercise.to_sym][:reps] = ''
-    change_exercise
+    if exercise == 'deadlifts' && total_sets == 1
+      exercises[exercise.to_sym][:reps] = ''
+      change_exercise
+    elsif total_sets == 5
+      exercises[exercise.to_sym][:reps] = ''
+      change_exercise
+    end
   end
 
   def increment_failures
