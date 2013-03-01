@@ -12,4 +12,9 @@ class WorkoutsController < ApplicationController
     @workout.save
     redirect_to '/break'
   end
+
+  def break
+    @workout = Workout.first
+    render layout: false
+  end
 end

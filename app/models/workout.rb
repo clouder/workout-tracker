@@ -84,6 +84,18 @@ class Workout < ActiveRecord::Base
     reset_failures
   end
 
+  def rest_duration
+    failures = exercises[exercise.to_sym][:failures]
+    case failures
+    when 1
+      180
+    when 2
+      300
+    else
+      90
+    end
+  end
+
   def success?
     if exercise == 'deadlifts'
       total_sets == 1 && total_reps > 4

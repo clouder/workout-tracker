@@ -36,4 +36,32 @@ class TypicalUseTest < ActionDispatch::IntegrationTest
     get workout_path
     assert_select 'h1', 'Squats - 105 lbs []'
   end
+
+  test 'start an exercise that has no previous failure' do
+    put_via_redirect workout_path, reps: 5
+    assert_select 'meta[http-equiv][content^=90]'
+    assert_select 'h1', '90 Second Break'
+  end
+
+  test 'start an exercise that was failed once previously' do
+    # fake a previous failure
+    workout = Workout.first
+    workout.exercises[workout.exercise.to_sym][:failures] = 1
+    workout.save
+    # finished a set and clicked a rep button
+    put_via_redirect workout_path, reps: 5
+    assert_select 'meta[http-equiv][content^=180]'
+    assert_select 'h1', '180 Second Break'
+  end
+
+  test 'start an exercise that was failed twice previously' do
+    # fake 2 previous failures
+    workout = Workout.first
+    workout.exercises[workout.exercise.to_sym][:failures] = 2
+    workout.save
+    # finish a set and clicked a rep button
+    put_via_redirect workout_path, reps: 5
+    assert_select 'meta[http-equiv][content^=300]'
+    assert_select 'h1', '300 Second Break'
+  end
 end

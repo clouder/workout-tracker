@@ -114,4 +114,18 @@ class WorkoutTest < ActiveSupport::TestCase
     @workout.complete_set
     assert_equal 'squats', @workout.exercise
   end
+
+  test '#rest_duration returns 90 when failures is 0' do
+    assert_equal 90, @workout.rest_duration
+  end
+
+  test '#rest_duration returns 180 when failures is 1' do
+    @workout.exercises[:squats][:failures] = 1
+    assert_equal 180, @workout.rest_duration
+  end
+
+  test '#rest_duration returns 300 when failures is 2' do
+    @workout.exercises[:squats][:failures] = 2
+    assert_equal 300, @workout.rest_duration
+  end
 end
